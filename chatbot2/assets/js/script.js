@@ -7,11 +7,8 @@ $(document).ready(function() {
   // You can also add the html content in html page and still it will work!
   var mybot =
     '<div class="chatCont" id="chatCont">' +
-    '<div class="bot_profile">' +
-    '<img src="assets/img/bot2.png" class="bot_p_img">' +
     '<div class="close">' +
     '<i class="fa fa-times" aria-hidden="true"></i>' +
-    "</div>" +
     "</div><!--bot_profile end-->" +
     '<div id="result_div" class="resultDiv"></div>' +
     '<div class="chatForm" id="chat-div">' +
@@ -26,9 +23,6 @@ $(document).ready(function() {
     "</div><!--chatCont end-->" +
     '<div class="profile_div">' +
     '<div class="row">' +
-    '<div class="col-hgt">' +
-    '<img src="assets/img/bot2.png" class="img-circle img-profile">' +
-    "</div><!--col-hgt end-->" +
     '<div class="col-hgt">' +
     '<div class="chat-txt">' +
     "Chatea con nosotros ahora!" +
