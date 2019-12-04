@@ -14,14 +14,14 @@ admin.initializeApp({
 //se obtiene de dialogflow la variable de session
 const { SessionsClient } = require("dialogflow");
 
-exports.dialogFlowGateway = functions.https.onRequest((request, response) => {
+exports.dialogflowGateway = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     const { queryInput, sessionId } = request.body;
 
     //Crea ina instancia de las credenciales de sesion
     const sessionClient = new SessionsClient({ credentials: serviceAccount });
     //una vez hecha la peticion guarda los valores de el proyecto
-    const session = sessionClient.sessionPath("chatbotUEES2019", sessionId);
+    const session = sessionClient.sessionPath("chatbotuees2019", sessionId);
 
     //Espera a que se reciba un intent donde se recibira el input o lo que quiere decir el usuario
     const responses = await sessionClient.detectIntent({ session, queryInput });
