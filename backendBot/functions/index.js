@@ -1,20 +1,24 @@
+//Se hacen los imports de todo lo que se va a usar
 const functions = require("firebase-functions");
+//hace requerimiento de la aplicacion en front end
 const cors = require("cors")({ origin: true });
 const admin = require("firebase-admin");
 const serviceAccount = require("./service-account.json");
 
+//Esto inicializa la base de datos de dialogflow
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://chatbotuees2019.firebaseio.com"
 });
 
+//se obtiene de dialogflow la variable de session
 const { SessionsClient } = require("dialogflow");
 
 exports.dialogFlowGateway = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     const { queryInput, sessionId } = request.body;
 
-    //hace la peticion de las credenciales del cliente
+    //Crea ina instancia de las credenciales de sesion
     const sessionClient = new SessionsClient({ credentials: serviceAccount });
     //una vez hecha la peticion guarda los valores de el proyecto
     const session = sessionClient.sessionPath("chatbotUEES2019", sessionId);
