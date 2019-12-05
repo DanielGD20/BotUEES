@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+}
+
+html {
+  margin: 0;
+  height: 722px !important;
+}
+
+.chat-txt {
+  color: white !important;
+  background: rgba(129, 12, 51, 0.4);
+  padding-right: 100px !important;
+  padding-left: 100px !important;
+}
+
+.ifraim {
+  background-image: url("https://ih1.redbubble.net/image.686871229.3288/flat,800x800,070,f.u1.jpg");
+}
+
+.img-profile {
+  background: rgba(129, 12, 51, 0.4) !important;
+}
+
+.userEnteredText {
+  background: rgba(129, 12, 51, 0.4) !important;
+}
+
+.userEnteredText:before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0px solid rgba(0, 0, 0, 0);
+  border-bottom: 15px solid rgba(0, 0, 0, 0);
+  border-left: 15px solid rgba(129, 12, 51, 0.4) !important;
+  position: absolute;
+  right: -15px;
+  margin-top: -12px;
+}
+
+.spinner {
+  background: rgba(129, 12, 51, 0.4) !important;
+}
+
+.bot-txt {
+  color: white !important;
+  background: rgba(129, 12, 51, 0.4) !important;
+  border-top: none !important;
+  border-left: none !important;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white !important;
+  opacity: 1; /* Firefox */
+}
+
+.spinner:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 0px solid rgba(0, 0, 0, 0);
+  border-bottom: 15px solid rgba(0, 0, 0, 0);
+  border-right: 15px solid rgba(129, 12, 51, 0.4) !important;
+  left: -15px;
+  margin-top: -7px;
+}
+.bot_p_img {
+  background: rgba(129, 12, 51, 0.4) !important;
+}
+
+.resultDiv {
+  border: 0;
+}
