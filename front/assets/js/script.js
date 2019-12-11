@@ -7,10 +7,8 @@ $(document).ready(function() {
   //---------------------------------- Add dynamic html bot content(Widget style) ----------------------------
   // You can also add the html content in html page and still it will work!
   var mybot =
+    '<div class="pruebaBoton" id="pruebas"><button type="button" class="btn btn-dark" id="regresar">Terminar Chat</button></div>' +
     '<div class="chatCont" id="chatCont">' +
-    '<div class="close">' +
-    '<i class="fa fa-times" aria-hidden="true"></i>' +
-    "</div><!--bot_profile end-->" +
     '<div id="result_div" class="resultDiv"></div>' +
     '<div class="chatForm" id="chat-div">' +
     '<div class="spinner">' +
@@ -35,19 +33,15 @@ $(document).ready(function() {
   $("mybot").html(mybot);
 
   // ------------------------------------------ Esto abre el chat y lo cierra -----------------------------------------------
-  $(".profile_div").click(function() {
-    $(".profile_div").toggle();
-    $(".chatCont").toggle();
-    $(".bot_profile").toggle();
-    $(".chatForm").toggle();
-    document.getElementById("chat-entrada-usuario").focus();
-  });
 
-  $(".close").click(function() {
-    $(".profile_div").toggle();
-    $(".chatCont").toggle();
-    $(".bot_profile").toggle();
-    $(".chatForm").toggle();
+  $(".profile_div").toggle();
+  $(".chatCont").toggle();
+  $(".bot_profile").toggle();
+  $(".chatForm").toggle();
+  document.getElementById("chat-entrada-usuario").focus();
+
+  $("#regresar").click(function() {
+    location.assign("../../index.html");
   });
 
   // Esto inicia la sesion, esto es importante ya que cada usuario debe tener una sesion unica--------------------------------

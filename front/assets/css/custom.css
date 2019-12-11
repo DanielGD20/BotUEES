@@ -9,7 +9,7 @@ html {
 
 .chat-txt {
   color: white !important;
-  background: rgba(129, 12, 51, 0.4);
+  background: rgba(129, 13, 52, 0.79) !important;
   padding-right: 100px !important;
   padding-left: 100px !important;
 }
@@ -44,7 +44,7 @@ html {
 
 .bot-txt {
   color: white !important;
-  background: rgba(129, 12, 51, 0.4) !important;
+  background: rgb(129, 13, 52) !important;
   border-top: none !important;
   border-left: none !important;
 }
@@ -72,4 +72,37 @@ html {
 
 .resultDiv {
   border: 0;
+}
+
+.pruebaBoton {
+  position: fixed;
+  width: 65%;
+  height: 9.1%;
+  float: left;
+  bottom: 0px;
+  border-top-left-radius: 3px;
+  z-index: 10000;
+  background-color: rgb(129, 13, 52);
+}
+
+#regresar {
+  height: 100%;
+  width: 30%;
+  font-size: 110%;
+}
+
+#logo {
+  position: fixed;
+  width: 25%;
+  height: 104%;
+  float: left;
+  bottom: 0px;
+  border-top-left-radius: 3px;
+  z-index: 1;
+  margin-left: -2%;
+}
+
+#imagen {
+  width: 68%;
+  height: 160px;
 }
