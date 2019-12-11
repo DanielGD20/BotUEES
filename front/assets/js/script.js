@@ -135,8 +135,7 @@ $(document).ready(function() {
         "cache-control": "no-cache"
       },
       processData: false,
-      data:
-        '{\n\t"sessionId": "foo",\n\t"queryInput": {\n\t\t"text": {\n\t\t\t"text": "hola",\n\t\t\t"languageCode": "es-419"\n\t\t}\n\t}\n}'
+      data: `{\n\t"sessionId": "${mysession}",\n\t"queryInput": {\n\t\t"text": {\n\t\t\t"text": "${text}",\n\t\t\t"languageCode": "es-419"\n\t\t}\n\t}\n}`
     };
 
     $.ajax(settings).done(function(response) {
