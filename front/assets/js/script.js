@@ -9,7 +9,7 @@ $(document).ready(function() {
   var mybot =
     '<div class="pruebaBoton" id="pruebas"><button type="button" class="btn btn-dark" id="regresar">Terminar Chat</button></div>' +
     '<div class="chatCont" id="chatCont">' +
-    '<div id="result_div" class="resultDiv"></div>' +
+    '<div id="result_div" class="resultDiv scrollbar scrollbar-lady-lips"></div>' +
     '<div class="chatForm" id="chat-div">' +
     '<div class="spinner">' +
     '<div class="bounce1"></div>' +
@@ -32,7 +32,9 @@ $(document).ready(function() {
 
   $("mybot").html(mybot);
 
-  // ------------------------------------------ Esto abre el chat y lo cierra -----------------------------------------------
+  // ------------------------------------------ Esto se ejecuta al iniciar la app -----------------------------------------------
+
+  var apiBot;
 
   $(".profile_div").toggle();
   $(".chatCont").toggle();
@@ -40,8 +42,36 @@ $(document).ready(function() {
   $(".chatForm").toggle();
   document.getElementById("chat-entrada-usuario").focus();
 
+  saludo();
+
+  var iframe = document.getElementById("robot");
+  var uid = "56023ec5dafa4a59978d1ba512aa7e00";
+
+  // Se llama al cliente
+  var client = new Sketchfab(iframe);
+
+  client.init(uid, {
+    success: function onSuccess(api) {
+      apiBot = api;
+      apiBot.start();
+      apiBot.load();
+      apiBot.addEventListener("viewerready", function() {
+        //Aqui se inserta el codigo de la api
+        console.log("Esta listo");
+        normal();
+      });
+    },
+    error: function onError() {
+      console.log("Error de carga");
+    }
+  });
+
+  console.log($(".resultDiv").height());
+
+  //-------------------------------------------- Fin del main -----------------------------------------------------------------
+
   $("#regresar").click(function() {
-    location.assign("../../index.html");
+    location.assign("./index.html");
   });
 
   // Esto inicia la sesion, esto es importante ya que cada usuario debe tener una sesion unica--------------------------------
@@ -98,24 +128,16 @@ $(document).ready(function() {
         //hace que no sea vacio
         e.preventDefault();
         //retorna
+        document.getElementById("chat-entrada-usuario").focus();
         return false;
-        //f
+
+        //falso
       }
     }
   });
 
   //------------------------------------------- Send request to API.AI ---------------------------------------
   function send(text) {
-    // var enviar = {
-    //   sessionId: mysession,
-    //   queryInput: {
-    //     text: {
-    //       text: text,
-    //       laguageCode: "es-419"
-    //     }
-    //   }
-    // };
-
     var settings = {
       async: true,
       crossDomain: true,
@@ -129,7 +151,7 @@ $(document).ready(function() {
         "cache-control": "no-cache"
       },
       processData: false,
-      data: `{\n\t"sessionId": "${mysession}",\n\t"queryInput": {\n\t\t"text": {\n\t\t\t"text": "${text}",\n\t\t\t"languageCode": "es-419"\n\t\t}\n\t}\n}`
+      data: `{\n\t"sessionId": "${mysession}",\n\t"queryInput": {\n\t\t"text": {\n\t\t\t"text": "${text}",\n\t\t\t"languageCode": "es"\n\t\t}\n\t}\n}`
     };
 
     $.ajax(settings).done(function(response) {
@@ -142,14 +164,17 @@ $(document).ready(function() {
   function main(data) {
     var sugerencias = false;
     var resultado = data.fulfillmentMessages[0].text.text[0];
-    setBotResponse(resultado);
+    var action = "" + data.action;
+    console.log(action);
+    setBotResponse(resultado, action);
     if (sugerencias) {
       addSuggestion(sugerencias);
     }
   }
 
   //------------------------------------ pone la respuesta del bot en el chat -------------------------------------
-  function setBotResponse(val) {
+  function setBotResponse(val, action) {
+    console.log(action);
     setTimeout(function() {
       if ($.trim(val) == "") {
         val = "No pude obtener el resultado esperado, intenta otra cosa";
@@ -162,8 +187,26 @@ $(document).ready(function() {
           '<p class="botResult">' + val + '</p><div class="clearfix"></div>';
         $(BotResponse).appendTo("#result_div");
       }
-      scrollToBottomOfResults();
-      hideSpinner();
+
+      switch (action) {
+        case "input.unknown":
+          scrollToBottomOfResults();
+          hideSpinner();
+          alerta();
+          alturaChat();
+
+        case "input.gracias":
+          scrollToBottomOfResults();
+          hideSpinner();
+          love();
+          alturaChat();
+
+        default:
+          scrollToBottomOfResults();
+          hideSpinner();
+          normal();
+          alturaChat();
+      }
     }, 500);
   }
 
@@ -175,6 +218,8 @@ $(document).ready(function() {
     $("#chat-entrada-usuario").val("");
     scrollToBottomOfResults();
     showSpinner();
+    cargando();
+    alturaChat();
     $(".suggestion").remove();
   }
 
@@ -192,6 +237,52 @@ $(document).ready(function() {
     $(".spinner").hide();
   }
 
+  function cargando() {
+    apiBot.getAnimations(function(err, animations) {
+      var firstAnimationUID = animations[1][0];
+      apiBot.setCurrentAnimationByUID(firstAnimationUID);
+    });
+  }
+
+  function normal() {
+    apiBot.getAnimations(function(err, animations) {
+      console.log(animations);
+      var firstAnimationUID = animations[0][0];
+      apiBot.setCurrentAnimationByUID(firstAnimationUID);
+    });
+  }
+
+  function error() {
+    apiBot.getAnimations(function(err, animations) {
+      console.log(animations);
+      var firstAnimationUID = animations[2][0];
+      apiBot.setCurrentAnimationByUID(firstAnimationUID);
+    });
+  }
+
+  function love() {
+    apiBot.getAnimations(function(err, animations) {
+      console.log(animations);
+      var firstAnimationUID = animations[3][0];
+      apiBot.setCurrentAnimationByUID(firstAnimationUID);
+    });
+  }
+
+  function alerta() {
+    apiBot.getAnimations(function(err, animations) {
+      console.log(animations);
+      var firstAnimationUID = animations[4][0];
+      apiBot.setCurrentAnimationByUID(firstAnimationUID);
+    });
+  }
+
+  function alturaChat() {
+    var altura = $(".resultDiv").height();
+    if (altura >= 561) {
+      $(".resultDiv").css("height", "661");
+    }
+  }
+
   //------------------------------------------- Suggestions --------------------------------------------------
   function addSuggestion(textToAdd) {
     setTimeout(function() {
@@ -207,6 +298,18 @@ $(document).ready(function() {
       }
       scrollToBottomOfResults();
     }, 1000);
+  }
+
+  function saludo() {
+    setTimeout(function() {
+      showSpinner();
+
+      setTimeout(function() {
+        setBotResponse(
+          "¡Hola!, Reciba un cordial saludo de parte de ChatBot UEES, En que podemos ayudarle."
+        );
+      }, 3000);
+    }, 2000);
   }
 
   // on click of suggestions get value and send to API.AI
